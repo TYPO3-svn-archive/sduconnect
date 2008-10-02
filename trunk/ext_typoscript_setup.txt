@@ -7,6 +7,6 @@ plugin.tx_sduconnect_pi1 {
 }
 
 # Make it USER_INT for search
-[globalVar = GP:page = search]
+[globalVar = GP:page = search][globalVar = GP:typo3_user_int = 1]
 plugin.tx_sduconnect_pi1 = USER_INT
 [global]

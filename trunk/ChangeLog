@@ -1,3 +1,7 @@
+2008-10-02	Dmitry Dulepov	<dmitry@netcreators.com>
+
+	* Fixed problems with bad links, caching and character encoding on www.wijkbijduurstede.nl
+
 2008-09-29	Dmitry Dulepov	<dmitry.dulepov@gmail.com>
 
 	* Forked the extension and renamed classes to have "sduconnect" prefix

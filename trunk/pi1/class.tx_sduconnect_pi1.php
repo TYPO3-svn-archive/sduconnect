@@ -74,7 +74,9 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 			}
 		}
 		else {
-			$this->content = $this->fixLinks($this->getContent());
+			$content = $this->getContent();
+			$content = $this->fixLinks($content);
+			$this->content = $this->fixCharset($content);
 		}
 		return $this->pi_wrapInBaseClass($this->content);
 	}
@@ -375,7 +377,10 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 */
 	function fixLinks($content) {
 		$host = ($this->conf['host'] ? $this->conf['host'] : t3lib_div::getIndpEnv('HTTP_HOST'));
-		$pattern = '/(\'|")(http:\/\/' . preg_quote($host, '/') . '\/index.php\?id=\d+.*?)\1/';
+		//$pattern = '/(\'|")(http:\/\/' . preg_quote($host, '/') . '\/index.php\?id=\d+.*?)\1/';
+		//$group = 2;
+		$pattern = '/(\'|")((?:(?:http:\/\/' . preg_quote($host, '/') . '\/[^\?]*)?\?).*?)\1/';
+		$group = 2;
 		$matches = array();
 		preg_match_all($pattern, $content, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
 		$linkCache = array();
@@ -397,14 +402,13 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 			/* @var $crawler tx_crawler_lib */
 			$crawler->setID = time();
 		}
-		$group = 2;
 		$jsLinks = array();
 		for ($i = count($matches[$group]) - 1; $i >= 0; $i--) {
 			if (isset($linkCache[$matches[$group][$i][0]])) {
 				$link = $linkCache[$matches[$group][$i][0]];
 			}
 			else {
-				$link = $this->convertPageLink($matches[$group][$i][0], $params);
+				$link = htmlspecialchars($this->convertPageLink($matches[$group][$i][0], $params));
 				$linkCache[$matches[$group][$i][0]] = $link = t3lib_div::locationHeaderUrl($link);
 				if ($matches[$group - 1][$i][0] == '\'') {
 					$jsLinks[] = $link;
@@ -437,6 +441,35 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 		if (($title = $this->extractTitle($content))) {
 			$GLOBALS['TSFE']->altPageTitle = $GLOBALS['TSFE']->indexedDocTitle = $title;
 		}
+		// Fix forms
+		$content = $this->fixForms($content);
+		return $content;
+	}
+
+	/**
+	 * Fixes form tags: empty action tag and caching.
+	 *
+	 * @param	string	$content	Content
+	 * @return	string	Fixed content
+	 */
+	function fixForms($content) {
+		if (strpos($content, 'action=""') !== false) {
+			$content = str_replace('action=""', 'action="' . htmlspecialchars($this->pi_getPageLink($GLOBALS['TSFE']->id)) . '"', $content);
+		}
+		$content = str_replace('</form>', '<input type="hidden" name="typo3_user_int" value="1" /></form>', $content);
+		return $content;
+	}
+
+	/**
+	 * Fixes character set differencies between SDU feed and TYPO3.
+	 *
+	 * @param	string	$content	Content
+	 * @return	string	Fixed content
+	 */
+	function fixCharset($content) {
+		if ($GLOBALS['TSFE']->renderCharset != 'iso-8859-1') {
+			$content = $GLOBALS['TSFE']->csConvObj->conv($content, 'iso-8859-1', $GLOBALS['TSFE']->renderCharset, true);
+		}
 		return $content;
 	}
 
@@ -448,20 +481,29 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 * @return	string	Converted link
 	 */
 	function convertPageLink($link, &$params) {
-		list(, $link_params) = explode('&', $link, 2);
-		$conf = array(
-			'parameter' => $GLOBALS['TSFE']->id,
-		);
-		$params = array();
-		if ($link_params) {
-			foreach (explode('&', $link_params) as $paramset) {
-				list($name, $value) = explode('=', $paramset);
-				$params[$name] = $value;
-			}
-			$conf['additionalParams'] = '&' . $link_params;
-			$conf['useCacheHash'] = true;
+		list(, $link_params) = explode('?', $link, 2);
+		if ($link_params == '') {
+			$url = $link;
 		}
-		return $this->cObj->typoLink_URL($conf);
+		else {
+			$conf = array(
+				'parameter' => $GLOBALS['TSFE']->id,
+			);
+			$params = array();
+			if ($link_params) {
+				$link_params = str_replace('&amp;', '&', $link_params);
+				foreach (explode('&', $link_params) as $paramset) {
+					list($name, $value) = explode('=', $paramset);
+					if ($name != 'id') {
+						$params[$name] = $value;
+					}
+				}
+				$conf['additionalParams'] = '&' . $link_params;
+				$conf['useCacheHash'] = true;
+			}
+			$url = $this->cObj->typoLink_URL($conf);
+		}
+		return $url;
 	}
 
 	/**
