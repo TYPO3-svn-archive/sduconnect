@@ -1,6 +1,7 @@
 2008-10-02	Dmitry Dulepov	<dmitry@netcreators.com>
 
 	* Fixed problems with bad links, caching and character encoding on www.wijkbijduurstede.nl
+	* Version 0.2.0 is sent to TER
 
 2008-09-29	Dmitry Dulepov	<dmitry.dulepov@gmail.com>
 
