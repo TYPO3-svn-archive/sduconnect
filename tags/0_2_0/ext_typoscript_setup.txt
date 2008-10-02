@@ -1,0 +1,12 @@
+plugin.tx_sduconnect_pi1 = USER
+plugin.tx_sduconnect_pi1 {
+	includeLibs = EXT:sduconnect/pi1/class.tx_sduconnect_pi1.php
+	userFunc = tx_sduconnect_pi1->main
+	# Set this to the host name that will appear in SDU links. Useful if debugging at localhost. Defaults to current host
+	host =
+}
+
+# Make it USER_INT for search
+[globalVar = GP:page = search][globalVar = GP:typo3_user_int = 1]
+plugin.tx_sduconnect_pi1 = USER_INT
+[global]

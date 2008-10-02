@@ -1,0 +1,19 @@
+2008-10-02	Dmitry Dulepov	<dmitry@netcreators.com>
+
+	* Fixed problems with bad links, caching and character encoding on www.wijkbijduurstede.nl
+	* Version 0.2.0 is sent to TER
+
+2008-09-29	Dmitry Dulepov	<dmitry.dulepov@gmail.com>
+
+	* Forked the extension and renamed classes to have "sduconnect" prefix
+
+08-04-07 Ben van Kruistum <ben@ooip.nl>
+	* Added the possibility of linking to a product from SDU connect
+	* Enabled USER_INT instead of disabling cache
+	* Removed all typoscript setup / constant files
+	* Removed entrys in the ext_tables.php referring to above files
+
+
+08-03-26 Ben van Kruistum  <ben@ooip.nl>
+
+	* Initial release
