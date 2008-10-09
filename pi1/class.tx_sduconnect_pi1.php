@@ -467,9 +467,11 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 * @return	string	Fixed content
 	 */
 	function fixCharset($content) {
+		/*
 		if ($GLOBALS['TSFE']->renderCharset != 'iso-8859-1') {
 			$content = $GLOBALS['TSFE']->csConvObj->conv($content, 'iso-8859-1', $GLOBALS['TSFE']->renderCharset, true);
 		}
+		*/
 		return $content;
 	}
 
