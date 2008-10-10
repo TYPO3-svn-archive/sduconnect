@@ -484,6 +484,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 */
 	function convertPageLink($link, &$params) {
 		list(, $link_params) = explode('?', $link, 2);
+		$params = array();
 		if ($link_params == '') {
 			$url = $link;
 		}
@@ -491,7 +492,6 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 			$conf = array(
 				'parameter' => $GLOBALS['TSFE']->id,
 			);
-			$params = array();
 			if ($link_params) {
 				$link_params = str_replace('&amp;', '&', $link_params);
 				foreach (explode('&', $link_params) as $paramset) {
