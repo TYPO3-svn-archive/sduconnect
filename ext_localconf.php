@@ -38,7 +38,27 @@ function sduconnect_addRealURLConf() {
 		'proxy' => array(
 			array(
 				'GETvar' => 'proxy',
-				'default' => '',
+			),
+		),
+		'productmod_keywords' => array(
+			array(
+				'GETvar' => 'productmod_keywords',
+			),
+		),
+		'lokettype' => array(
+			array(
+				'GETvar' => 'lokettype',
+				'valueMap' => array(
+					'xml' => 3,
+					'e-loket-1.0' => 1,
+					'e-loket-2.0' => 6,
+					'e-Loket_3.0' => 7,
+					'e-balie' => 2,
+					'subsidie' => 4,
+					'list-a-z' => 5,
+					'xml-overzicht' => 99,
+				),
+				// if map above did not trigger, pass value as is
 			),
 		),
 	);

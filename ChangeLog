@@ -3,6 +3,7 @@
 	* Fixed: lokettype URL parameter was ignored when passed in the URL
 	* Made top10 and smarttags parameters appear in URL to SDU server only if necessary
 	* Fixed: search form URL was not converted to local URL due to missing parameters
+	* Added more RealURL configuration variables
 
 2008-10-17	Dmitry Dulepov	<dmitry@netcreators.com>
 
