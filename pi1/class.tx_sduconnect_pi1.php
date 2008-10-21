@@ -380,8 +380,6 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 */
 	function fixLinks($content) {
 		$host = ($this->conf['host'] ? $this->conf['host'] : t3lib_div::getIndpEnv('HTTP_HOST'));
-		//$pattern = '/(\'|")(http:\/\/' . preg_quote($host, '/') . '\/index.php\?id=\d+.*?)\1/';
-		//$group = 2;
 		$pattern = '/(\'|")((?:(?:http:\/\/' . preg_quote($host, '/') . '\/[^\?]*)?\?).*?)\1/';
 		$group = 2;
 		$matches = array();
@@ -489,28 +487,23 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	function convertPageLink($link, &$params) {
 		list(, $link_params) = explode('?', $link, 2);
 		$params = array();
-		if ($link_params == '') {
-			$url = $link;
-		}
-		else {
-			$conf = array(
-				'parameter' => $GLOBALS['TSFE']->id,
-			);
-			if ($link_params) {
-				$link_params = str_replace('&amp;', '&', $link_params);
-				foreach (explode('&', $link_params) as $paramset) {
-					list($name, $value) = explode('=', $paramset);
-					if ($name != 'id') {
-						$params[$name] = $value;
-					}
-				}
-				if (count($params) > 0) {
-					$conf['additionalParams'] = t3lib_div::implodeArrayForUrl('', $params, '', true);
-					$conf['useCacheHash'] = true;
+		$conf = array(
+			'parameter' => $GLOBALS['TSFE']->id,
+		);
+		if ($link_params) {
+			$link_params = str_replace('&amp;', '&', $link_params);
+			foreach (explode('&', $link_params) as $paramset) {
+				list($name, $value) = explode('=', $paramset);
+				if ($name != 'id') {
+					$params[$name] = $value;
 				}
 			}
-			$url = $this->cObj->typoLink_URL($conf);
+			if (count($params) > 0) {
+				$conf['additionalParams'] = t3lib_div::implodeArrayForUrl('', $params, '', true);
+				$conf['useCacheHash'] = true;
+			}
 		}
+		$url = $this->cObj->typoLink_URL($conf);
 		return $url;
 	}
 
