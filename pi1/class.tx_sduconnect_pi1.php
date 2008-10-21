@@ -175,11 +175,9 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 */
 		// Preset the options
 		$get = $_GET;
-		foreach (array('id', 'typo3_user_int', 'top10') as $var) {
+		foreach (array('id', 'typo3_user_int', 'top10', 'smarttags') as $var) {
 			unset($get[$var]);
 		}
-		$get['top10'] = 0;
-		$get['smarttags'] = 0;
 
 		$locketType = $this->publishType;
 		if (t3lib_div::testInt($get['lokettype'])) {
