@@ -1,3 +1,7 @@
+2008-10-17	Dmitry Dulepov	<dmitry@netcreators.com>
+
+	* Fixed: wrong Dutch strings for locket types
+
 2008-10-09	Dmitry Dulepov	<dmitry@netcreators.com>
 
 	* Fixed: error "array expected in t3lib_div::implodeArrayForUrl, string given"
