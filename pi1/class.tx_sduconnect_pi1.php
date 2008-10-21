@@ -118,7 +118,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 			if ($this->getStoredValue('enableGoogleMaps','sheet3')) {
 				$this->setGoogleApiKey();
 				if (!$this->googleMapApiKey) {
-					return;
+					return false;
 				}
 				$this->googleMapHeight = $this->getStoredValue('googleMapsHeight', 'sheet3');
 				$this->googleMapWidth = $this->getStoredValue('googleMapsWidth', 'sheet3');
@@ -175,33 +175,39 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 */
 		// Preset the options
 		$get = $_GET;
+		foreach (array('id', 'typo3_user_int', 'top10') as $var) {
+			unset($get[$var]);
+		}
 		$get['top10'] = 0;
 		$get['smarttags'] = 0;
 
-		$myType = 1;
-		switch ($this->publishType) {
+		$locketType = $this->publishType;
+		if (t3lib_div::testInt($get['lokettype'])) {
+			$locketType = $get['lokettype'];
+		}
+		switch ($locketType) {
 			case 1:
-				$myType = 1;
+				$locketType = 1;
 				break;
 			case 2:
-				$myType = 2;
+				$locketType = 2;
 				break;
 			case 3:
-				$myType = false;
+				$locketType = false;
 				$urlPrefix = 'xml';
 				break;
 			case 4:
-				$myType = 4;
+				$locketType = 4;
 				break;
 			case 5:
 				$get['view'] = 'product_list';
-				$myType = 5;
+				$locketType = 5;
 				break;
 			case 6:
-				$myType = 6;
+				$locketType = 6;
 				break;
 			case 7:
-				$myType = 7;
+				$locketType = 7;
 
 				$opt = explode(',', $this->getStoredValue('lokettype03_options', 'sheet2'));
 
@@ -216,32 +222,34 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 					}
 				}
 
-				$get['organisatie[0]'] = '0';
-				$get['organisatie[1]'] = '0';
-				$get['organisatie[2]'] = '0';
-				$get['organisatie[3]'] = '0';
-
+				// Options
 				$opt = explode(',', $this->getStoredValue('lokettype03_searchOpt', 'sheet2'));
-
+				$organizations = array();
 				foreach($opt as $value) {
 					switch ($value) {
 						case '1':
-							$get['organisatie[0]'] = 'gemeenten';
+							$organizations[count($organizations)] = 'gemeenten';
 							break;
 						case '2':
-							$get['organisatie[1]'] = 'waterschappen';
+							$organizations[count($organizations)] = 'waterschappen';
 							break;
 						case '3':
-							$get['organisatie[2]'] = 'provincies';
+							$organizations[count($organizations)] = 'provincies';
 							break;
 						case '4':
-							$get['organisatie[3]'] = 'ministeries';
+							$organizations[count($organizations)] = 'ministeries';
 							break;
 					}
 				}
+				if (count($organizations) > 0) {
+					$get['organisatie'] = $organizations;
+				}
+				else {
+					unset($get['organizatie']);
+				}
 				break;
 			case 99:
-				$myType = false;
+				$locketType = false;
 				$urlPrefix = 'xml';
 				$get['view'] = 'collection_product_full';
 				break;
@@ -251,25 +259,22 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 		$get['product_collection_id'] = $this->collectionId;
 		$get['proxy'] = 'true';
 
-		if($myType) {
-			$get['lokettype']  = $myType;
+		if ($locketType) {
+			$get['lokettype'] = $locketType;
 		}
 
-		if(isset($_SERVER['HTTP_REFERER'])) {
-			$get['referer'] = $_SERVER['HTTP_REFERER'];
-		}
-
-		if(!isset($get['view'])) {
-			$get['view'] = 'product_home';
-		}
-
-		if($this->productId > 0){
+		if ($this->productId > 0) {
 			$get['view'] = 'product';
 			$get['product_id'] = $this->productId;
 		}
+		elseif (!isset($get['view'])) {
+			$get['view'] = 'product_home';
+		}
 
-		return t3lib_div::getURL('http://'.$urlPrefix.'.sduconnect.nl/product.xml?' .
-				t3lib_div::implodeArrayForUrl('', t3lib_div::array_merge_recursive_overrule($get, $_POST), '', false, true));
+		$url = 'http://'.$urlPrefix.'.sduconnect.nl/product.xml?' .
+				t3lib_div::implodeArrayForUrl('',
+				t3lib_div::array_merge_recursive_overrule($get, $_POST), '', false, true);
+		return t3lib_div::getURL($url);
 	}
 
 	/**
@@ -289,7 +294,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 		$get['account_id'] = $this->sduAccountId;
 		$get['news_collection_id'] = $this->proclamationCollectionId;
 		$get['proxy'] = 'true';
-		$get['charset'] = $charset;
+		//$get['charset'] = $charset;
 
 		if (!isset($get['view'])) {
 			$get['view'] = 'news_overview';
@@ -390,7 +395,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 				t3lib_extMgm::isLoaded('crawler') &&
 				t3lib_div::_GP('view') != 'product_search') {
 			$crawlerConfig = array(
-				'procInstrFilter' => /*'tx_cachemgm_recache, */'tx_indexedsearch_reindex, tx_indexedsearch_crawler, tx_indexedsearch_files',
+				'procInstrFilter' => 'tx_indexedsearch_reindex, tx_indexedsearch_crawler, tx_indexedsearch_files',
 				'cHash' => 1,
 				'pidsOnly' => $GLOBALS['TSFE']->id,
 			);
@@ -408,6 +413,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 				$link = $linkCache[$matches[$group][$i][0]];
 			}
 			else {
+				$params = array();
 				$link = htmlspecialchars($this->convertPageLink($matches[$group][$i][0], $params));
 				$linkCache[$matches[$group][$i][0]] = $link = t3lib_div::locationHeaderUrl($link);
 				if ($matches[$group - 1][$i][0] == '\'') {
@@ -500,8 +506,10 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 						$params[$name] = $value;
 					}
 				}
-				$conf['additionalParams'] = '&' . $link_params;
-				$conf['useCacheHash'] = true;
+				if (count($params) > 0) {
+					$conf['additionalParams'] = t3lib_div::implodeArrayForUrl('', $params, '', true);
+					$conf['useCacheHash'] = true;
+				}
 			}
 			$url = $this->cObj->typoLink_URL($conf);
 		}
