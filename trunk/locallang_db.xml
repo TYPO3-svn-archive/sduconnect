@@ -89,12 +89,14 @@
 			<label index="sduconnect.conf.publishCollectionType">Selecteer publiceer type</label>
 
 			<label index="sduconnect.conf.selectScript.type0">Maak een keuze</label>
-			<label index="sduconnect.conf.selectScript.type1">XML</label>
-			<label index="sduconnect.conf.selectScript.type2">E-Loket</label>
-			<label index="sduconnect.conf.selectScript.type3">E-Balie</label>
+			<label index="sduconnect.conf.selectScript.type3">XML</label>
+			<label index="sduconnect.conf.selectScript.type1">E-Loket 1.0</label>
+			<label index="sduconnect.conf.selectScript.type6">E-Loket 2.0</label>
+			<label index="sduconnect.conf.selectScript.type7">E-Loket 3.0</label>
+			<label index="sduconnect.conf.selectScript.type2">E-Balie</label>
 			<label index="sduconnect.conf.selectScript.type4">Subsidieloket</label>
 			<label index="sduconnect.conf.selectScript.type5">Lijst A-Z</label>
-
+			<label index="sduconnect.conf.selectScript.type99">XML overzicht</label>
 
 			<label index="sduconnect.conf.proclamationCollection">Bekendmakingen Collection ID</label>
 			<label index="sduconnect.conf.googleMaps">Google Maps Gebruiken</label>
