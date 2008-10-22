@@ -1,3 +1,7 @@
+2008-10-22	Dmitry Dulepov	<dmitry@netcreators.com>
+
+	* Fixed: update wizard did not work
+
 2008-10-21	Dmitry Dulepov	<dmitry@netcreators.com>
 
 	* Fixed: lokettype URL parameter was ignored when passed in the URL
