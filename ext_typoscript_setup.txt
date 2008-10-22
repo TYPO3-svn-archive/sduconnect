@@ -6,7 +6,7 @@ plugin.tx_sduconnect_pi1 {
 	host =
 }
 
-# Make it USER_INT for search
-[globalVar = GP:page = search][globalVar = GP:typo3_user_int = 1]
+# Make it USER_INT for search and external queries
+[globalVar = GP:page = search][globalVar = GP:typo3_user_int = 1][globalVar = GP:cHash = ]
 plugin.tx_sduconnect_pi1 = USER_INT
 [global]

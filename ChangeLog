@@ -2,6 +2,7 @@
 
 	* Fixed: update wizard did not work
 	* Remove no_cache from link parameters
+	* Make plugin USER_INT automatically if cHash is empty
 
 2008-10-21	Dmitry Dulepov	<dmitry@netcreators.com>
 
