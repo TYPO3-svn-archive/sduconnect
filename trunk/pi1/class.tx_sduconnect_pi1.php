@@ -175,7 +175,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 */
 		// Preset the options
 		$get = $_GET;
-		foreach (array('id', 'typo3_user_int', 'top10', 'smarttags') as $var) {
+		foreach (array('id', 'no_cache', 'typo3_user_int', 'top10', 'smarttags') as $var) {
 			unset($get[$var]);
 		}
 
@@ -282,6 +282,9 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 */
 	function proxyScriptProclamation() {
 		$get = $_GET;
+		foreach (array('id', 'no_cache', 'typo3_user_int', 'top10', 'smarttags') as $var) {
+			unset($get[$var]);
+		}
 		if($this->getStoredValue('enableGoogleMaps', 'sheet3')) {
 			$get['google_map_api_key'] = $this->googleMapApiKey;
 			$get['mode'] = 'gmap';
@@ -368,7 +371,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 *
 	 * @return void
 	 */
-	function setPublishType(){
+	function setPublishType() {
 		$this->publishType = $this->getStoredValue('publishCollectionType', 'sheet2');
 	}
 
@@ -494,7 +497,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 			$link_params = str_replace('&amp;', '&', $link_params);
 			foreach (explode('&', $link_params) as $paramset) {
 				list($name, $value) = explode('=', $paramset);
-				if ($name != 'id') {
+				if ($name != 'id' && $name != 'no_cache') {
 					$params[$name] = $value;
 				}
 			}
