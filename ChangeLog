@@ -1,6 +1,7 @@
 2008-10-22	Dmitry Dulepov	<dmitry@netcreators.com>
 
 	* Fixed: update wizard did not work
+	* Remove no_cache from link parameters
 
 2008-10-21	Dmitry Dulepov	<dmitry@netcreators.com>
 
