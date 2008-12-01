@@ -383,7 +383,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 	 */
 	function fixLinks($content) {
 		$host = ($this->conf['host'] ? $this->conf['host'] : t3lib_div::getIndpEnv('HTTP_HOST'));
-		$pattern = '/(\'|")((?:(?:http:\/\/' . preg_quote($host, '/') . '\/[^\?]*)?\?).*?)\1/';
+		$pattern = '/(\'|")((?:(?:http:\/\/' . preg_quote($host, '/') . '\/[^\?"\']*)?\?).*?)\1/';
 		$group = 2;
 		$matches = array();
 		preg_match_all($pattern, $content, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
@@ -393,6 +393,7 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 		if (!isset($_SERVER['HTTP_X_T3CRAWLER']) &&
 				t3lib_extMgm::isLoaded('crawler') &&
 				t3lib_div::_GP('view') != 'product_search') {
+			// TODO Check page's user group and set it here
 			$crawlerConfig = array(
 				'procInstrFilter' => 'tx_indexedsearch_reindex, tx_indexedsearch_crawler, tx_indexedsearch_files',
 				'cHash' => 1,
