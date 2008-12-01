@@ -1,3 +1,7 @@
+2008-12-01  Dmitry Dulepov  <dmitry@typo3.org>
+
+	* Fixed bug #2250: Link to the home page of the site corrupts output
+
 2008-10-22	Dmitry Dulepov	<dmitry@netcreators.com>
 
 	* Fixed: update wizard did not work
