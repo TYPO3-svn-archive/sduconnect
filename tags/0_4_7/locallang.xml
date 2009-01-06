@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'sduconnect'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">SDU Connect Loket</label>
+			<label index="pi1_plus_wiz_description">Insert a SDU Connect Loket</label>
+		</languageKey>
+		<languageKey index="nl" type="array">
+			<label index="pi1_title">Produkt Proxy Script</label>
+			<label index="pi1_plus_wiz_description">Inhoud verkrijgen van uw abonnement bij SDU connect</label>
+		</languageKey>
+	</data>
+</T3locallang>
