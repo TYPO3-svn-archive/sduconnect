@@ -221,29 +221,31 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 				}
 
 				// Options
-				$opt = explode(',', $this->getStoredValue('lokettype03_searchOpt', 'sheet2'));
-				$organizations = array();
-				foreach($opt as $value) {
-					switch ($value) {
-						case '1':
-							$organizations[count($organizations)] = 'gemeenten';
-							break;
-						case '2':
-							$organizations[count($organizations)] = 'waterschappen';
-							break;
-						case '3':
-							$organizations[count($organizations)] = 'provincies';
-							break;
-						case '4':
-							$organizations[count($organizations)] = 'ministeries';
-							break;
+				if (!is_array($get['organisatie']) || count($get['organisatie']) == 0) {
+					$opt = explode(',', $this->getStoredValue('lokettype03_searchOpt', 'sheet2'));
+					$organizations = array();
+					foreach($opt as $value) {
+						switch ($value) {
+							case '1':
+								$organizations[count($organizations)] = 'gemeenten';
+								break;
+							case '2':
+								$organizations[count($organizations)] = 'waterschappen';
+								break;
+							case '3':
+								$organizations[count($organizations)] = 'provincies';
+								break;
+							case '4':
+								$organizations[count($organizations)] = 'ministeries';
+								break;
+						}
 					}
-				}
-				if (count($organizations) > 0) {
-					$get['organisatie'] = $organizations;
-				}
-				else {
-					unset($get['organizatie']);
+					if (count($organizations) > 0) {
+						$get['organisatie'] = $organizations;
+					}
+					else {
+						unset($get['organisatie']);
+					}
 				}
 				break;
 			case 99:
@@ -499,7 +501,13 @@ class tx_sduconnect_pi1 extends tslib_pibase {
 			foreach (explode('&', $link_params) as $paramset) {
 				list($name, $value) = explode('=', $paramset);
 				if ($name != 'id' && $name != 'no_cache') {
-					$params[$name] = $value;
+					$name = rawurldecode($name);
+					if (substr($name, -2) == '[]') {
+						$params[substr($name, 0, -2)][] = $value;
+					}
+					else {
+						$params[$name] = $value;
+					}
 				}
 			}
 			if (count($params) > 0) {
