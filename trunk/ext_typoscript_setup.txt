@@ -4,6 +4,13 @@ plugin.tx_sduconnect_pi1 {
 	userFunc = tx_sduconnect_pi1->main
 	# Set this to the host name that will appear in SDU links. Useful if debugging at localhost. Defaults to current host
 	host =
+	
+	#set id's global
+	#addressCollection=
+	#proclamationCollection=
+	#productCollection=
+	#accountId=
+	#productId=
 }
 
 # Make it USER_INT for search and external queries

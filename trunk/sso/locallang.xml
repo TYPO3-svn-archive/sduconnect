@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+  <meta type="array">
+    <type>module</type>
+    <description>Language labels for module &quot;txsduconnectM2&quot;</description>
+  </meta>
+  <data type="array">
+    <languageKey index="default" type="array">
+      <label index="title">SSO</label>
+      <label index="function1">Account settings</label>
+      <label index="function2">Check</label>
+      <label index="loginForm_verifyButton">Verify</label>
+
+      <label index="loginForm.SDUSeckey_Text">Customeridentification-code</label>
+      <label index="loginForm.SDUUserText">Username</label>
+      <label index="loginForm.SDUPassText">Password</label>
+      <label index="loginForm.fieldsetTitle"></label>
+      <label index="loginForm.fieldsetLegend"></label>
+      
+      <label index="loginForm_unregisterButton">Unregister SSO</label>
+      <label index="loginForm_checkButton">Check SSO</label>
+      <label index="launchForm_launchButton">To SDU Account</label>
+
+      <label index="error.loginForm.checkFail">All fields are required!</label>
+      <label index="error.loginForm.checkSDUFail">Check failed, please confirm that the provided name and password are correct, or see the connection error for more details</label>
+      <label index="error.loginForm.checkSDUConnectionFail">An error occured while connecting : </label>
+      <label index="error.loginForm.check.noLoginOrPass">No loginname or password given</label>
+      <label index="error.loginForm.check.noAccountId">Could not load or find the account id, insert you SDU account ID</label>
+      <label index="error.loginForm.check.noSSOKey">The encryption key is not set, please fill in all required fields</label>
+
+      <label index="message.loginForm.checkSDUConnectionSucces">Validation succeeded</label>
+      <label index="message.loginForm.unRegisterSucces">unregistration succeeded</label>
+    </languageKey>
+    <languageKey index="nl" type="array">
+      <label index="title">SSO</label>
+      <label index="function1">Account instellingen</label>
+      <label index="function2">Controleer</label>
+      <label index="loginForm_verifyButton">Controleer</label>
+
+      <label index="loginForm.SDUSeckey_Text">Klantidentificatie-code</label>
+      <label index="loginForm.SDUUserText">Gebruikersnaam</label>
+      <label index="loginForm.SDUPassText">Wachtwoord</label>
+      <label index="loginForm.fieldsetTitle"></label>
+      <label index="loginForm.fieldsetLegend"></label>
+      
+      <label index="loginForm_unregisterButton">Afmelden SSO</label>
+      <label index="loginForm_checkButton">Verifieer SSO</label>
+      <label index="launchForm_launchButton">Naar SDU beheer</label>
+
+      <label index="error.loginForm.checkFail">Alle velden zijn verplicht</label>
+      <label index="error.loginForm.checkSDUFail">Verficatie mislukt, controleer uw opgegeven gevens of bekijk de verbindings foutmelding</label>
+      <label index="error.loginForm.checkSDUConnectionFail">De volgende fout is ontstaan : </label>
+      <label index="error.loginForm.check.noLoginOrPass">Geen gebruikersnaam of wachtwoord opgegeven</label>
+      <label index="error.loginForm.check.noAccountId">U moet eerst uw Account id opgeven </label>
+      <label index="error.loginForm.check.noSSOKey">De versleuteling is mislukt.</label>
+
+      <label index="message.loginForm.checkSDUConnectionSucces">Verificatie gelukt</label>
+      <label index="message.loginForm.unRegisterSucces">Afmelden gelukt</label>
+    </languageKey>
+  </data>
+</T3locallang>

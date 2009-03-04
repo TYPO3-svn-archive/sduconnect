@@ -1,11 +1,10 @@
-2009-01-06  Dmitry Dulepov  <dmitry@typo3.org>
-
-	* Fixed bug #2379: Link to more searchresults shows cached page (see prev revision!!!)
-	* Released version 0.4.7
-
-2008-12-01  Dmitry Dulepov  <dmitry@typo3.org>
-
-	* Fixed bug #2250: Link to the home page of the site corrupts output
+2009-03-04 Ben van Kruistum <ben@ooip.nl>
+	* Added SSO (Single SignOn) to SDU backend
+	* Added typoscript options
+		* proclamationCollection
+		* productId
+		* productCollection
+		* accountId
 
 2008-10-22	Dmitry Dulepov	<dmitry@netcreators.com>
 
