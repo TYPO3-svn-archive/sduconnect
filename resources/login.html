@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Untitled Page</title>
+</head>
+<body>
+	
+	
+	<!-- ###LOGIN_FORM###-->
+	<fieldset>
+		<legend>Geef hier het SDU Account id op</legend>
+		<dl>
+			<dt>
+				<label for="ooip_accountId">
+					Account ID</label></dt>
+			<dd>
+				<input type="text" name="ooip_accountId" id="ooip_accountId" value="###SDU_ACCOUNT_ID###" /></dd>
+		</dl>
+	</fieldset>
+	<fieldset>
+		<legend>Vul hier de SDU login gegevens in</legend>
+		<dl>
+			<dt>
+				<label for="ooip_secKey">
+					###SDUSECKEY_TEXT###</label></dt>
+			<dd>
+				<input type="text" name="ooip_secKey" id="ooip_secKey" value="###SDUSECKEY###" /></dd>
+			<dt>
+				<label for="ooip_sduUser">
+					###SDUUSER_TEXT###</label></dt>
+			<dd>
+				<input type="text" name="ooip_sduUser" id="ooip_sduUser" value="###SDUUSER###" /></dd>
+			<dt>
+				<label for="ooip_sduPass">
+					###SDUPASS_TEXT###</label></dt>
+			<dd>
+				<input type="text" name="ooip_sduPass" id="ooip_sduPass"  value="###SDUPASS###" /></dd>
+		</dl>
+	</fieldset>
+	<fieldset>
+		<input type="submit" value="###LOGIN_VERIFY###" id="ooip_sduSubmit" />
+	</fieldset>
+	<!-- ###LOGIN_FORM###-->
+	<!-- ###CHECK_FORM###-->
+	<fieldset>
+	<legend>Open de SDU connect beheers module</legend>
+	<input type="button" value="###LAUNCH_BUTTON###" onclick="window.open('###SDU_LAUNCH_URL###');" />
+	</fieldset>
+	<fieldset>
+	<legend>SSO acties</legend>		
+	<input type="submit" value="###LOGIN_CHECK###" id="ooip_sduCheck" name="ooip_sduCheck" />
+	<input type="submit" value="###LOGIN_UNREGISTER###" id="ooip_sduUnregister" name="ooip_sduUnregister" />
+	</fieldset>
+	<!-- ###CHECK_FORM###-->
+	<!-- ###SYSTEM_MESSAGE###-->
+	<div style="border: 1px solid green;margin:5px; padding:10px;">
+		###MESSAGE###
+	</div>
+	<!-- ###SYSTEM_MESSAGE###-->	
+	<!-- ###ERROR_MESSAGE###-->
+	<div style="border: 1px solid red;margin:5px; padding:10px;">
+		###MESSAGE###
+	</div>
+	<!-- ###ERROR_MESSAGE###-->
+</body>
+</html>

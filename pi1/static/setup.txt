@@ -1,0 +1,90 @@
+plugin.tx_sduconnect_pi1 {
+	proclamationCollection = 0
+	productId = 0
+	productCollection = 0
+	accountId = 0
+	
+/* Address functionality tested but not yet implemented
+
+	title_stdWrap.wrap = |
+	title_stdWrap.required = 1
+	
+	remark_stdWrap.wrap =|
+	remark_stdWrap.required = 1
+	
+	visit_address = COA
+	visit_address {
+		visit_address_street.wrap = |
+		visit_address_street.required = 1
+		
+		visit_address_number.wrap = &nbsp;|<br />
+		visit_address_number.required = 1
+		
+		visit_address_zip_code.wrap = |&nbsp;
+		visit_address_zip_code.required = 1
+		
+		visit_address_city.wrap = |
+		visit_address_city.required = 1
+		
+		wrap = <li>|</li>
+		required = 1
+	}
+	
+	post_address = COA
+	post_address {
+		post_address_street.wrap = |
+		post_address_street.required = 1
+		
+		post_address_number.wrap = &nbsp;|<br />
+		post_address_number.required = 1
+		
+		post_address_po_box.wrap = |&nbsp;
+		post_address_po_box.required = 1		
+		
+		post_address_zip_code.wrap = |<br />
+		post_address_zip_code.required = 1
+		
+		post_address_city.wrap = |
+		post_address_city.required = 1
+		
+		wrap = <li>|</li>
+		required = 1
+	}
+	
+	country_stdWrap.wrap = <li>|</li>
+	country_stdWrap.required = 1
+	
+	phone_number_stdWrap.wrap = <li>tel : |</li>
+	phone_number_stdWrap.required = 1
+	
+	fax_number_stdWrap.wrap = <li>fax : |</li>
+	fax_number_stdWrap.required = 1
+	
+	email_stdWrap {
+		wrap = <li>|</li>
+		typolink.parameter.dataWrap = {field:email}
+		required = 1
+	}
+	
+	url_stdWrap {
+		wrap = <li>|</li>
+		typolink.parameter.dataWrap = {field:url}
+		required = 1
+	}
+	urlInsertBreakOn = 200 #Inserts a break on this position zero base
+	
+	logo_stdWrap.wrap = |
+	logo_stdWrap.required = 1
+	
+	NavigationLink_stdWrap.classInActive = noLink
+	NavigationLink_stdWrap.classActive = activeLink
+	
+	NavigationLinkPrev_stdWrap.wrap = |
+	NavigationLinkPrev_stdWrap.class = prev_letter
+	
+	NavigationLinkNext_stdWrap.wrap = |
+	NavigationLinkNext_stdWrap.class = next_letter
+	
+	NavigationBackToTop_stdWrap.text = terug naar boven
+*/	
+}

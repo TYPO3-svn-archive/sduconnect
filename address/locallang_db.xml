@@ -7,9 +7,8 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_pi1">SDU Connect</label>
-      <label index="be_users.tx_sduconnect_sdusecuritykey">SDU security key</label>
-      
-      <label index="sduconnect.pi_flexform.sheet1">Select Script</label>
+
+			<label index="sduconnect.pi_flexform.sheet1">Select Script</label>
 			<label index="sduconnect.pi_flexform.sheet1_Desc">Here you can select the proxy script you want to use from SDU Connect as a content element</label>
 			<label index="sduconnect.pi_flexform.sheet1_DescShort">SDU connect Proxy Script</label>
 
