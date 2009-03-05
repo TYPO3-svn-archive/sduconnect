@@ -49,13 +49,13 @@ $BE_USER->modAccess($MCONF,1);    // This checks permissions and exits if the us
  * @subpackage    tx_sduconnect
  */
 
-class  tx_sduconnect_module2 extends t3lib_SCbase {
+class  tx_sduconnect_sso extends t3lib_SCbase {
 	var $pageinfo;
 	var $localLang;
 	var $localUser ; 
-	private $ssoSduAuthUrl = 'http://staging.sduconnect.nl/index.php?auth_action=login' ;//'http://admin.sduconnect.nl/index.php?auth_action=login';
+	private $ssoSduAuthUrl = 'http://admin.sduconnect.nl/index.php?auth_action=login';
 	private $ssoLocalReferer;
-	public $ssolaunchUrl = 'http://staging.sduconnect.nl/index.php?auth_action=login';
+	public $ssolaunchUrl = 'http://admin.sduconnect.nl/index.php?auth_action=login';
 	private $ssoKey = false;
 	private $ssoUserVerified = false;
 	private $ssoErrors;
@@ -554,7 +554,7 @@ if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sduconn
 }
 
 // Make instance:
-$SOBE = t3lib_div::makeInstance('tx_sduconnect_module2');
+$SOBE = t3lib_div::makeInstance('tx_sduconnect_sso');
 $SOBE->init();
 
 // Include files?

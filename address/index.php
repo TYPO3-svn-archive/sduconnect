@@ -29,7 +29,7 @@ require_once('conf.php');
 require_once($BACK_PATH.'init.php');
 require_once($BACK_PATH.'template.php');
 
-$LANG->includeLLFile('EXT:sduconnect/mod3/locallang.xml');
+$LANG->includeLLFile('EXT:sduconnect/address/locallang.xml');
 require_once(PATH_t3lib.'class.t3lib_scbase.php');
 $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users has no permission for entry.
 // DEFAULT initialization of a module [END]
@@ -51,7 +51,7 @@ require_once (PATH_tslib."class.tslib_pibase.php");
  * @package	TYPO3
  * @subpackage	tx_sduconnect
  */
-class  tx_sduconnect_module3 extends t3lib_SCbase {
+class  tx_sduconnect_address extends t3lib_SCbase {
 	var $pageinfo;
 	var $isUpdating=false;
 	var $settings;
@@ -377,15 +377,15 @@ class  tx_sduconnect_module3 extends t3lib_SCbase {
 
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sduconnect/mod3/index.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sduconnect/mod3/index.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sduconnect/address/index.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sduconnect/address/index.php']);
 }
 
 
 
 
 // Make instance:
-$SOBE = t3lib_div::makeInstance('tx_sduconnect_module3');
+$SOBE = t3lib_div::makeInstance('tx_sduconnect_address');
 $SOBE->init();
 
 // Include files?

@@ -27,10 +27,10 @@
                     <numIndex index="0">LLL:EXT:sduconnect/locallang_db.xml:sduconnect.conf.selectScript.script2</numIndex>
                     <numIndex index="1">2</numIndex>
                   </numIndex>
-                  <numIndex index="2">
+                  <!-- numIndex index="2">
                     <numIndex index="0">LLL:EXT:sduconnect/locallang_db.xml:sduconnect.conf.selectScript.script3</numIndex>
                     <numIndex index="1">3</numIndex>
-                  </numIndex>
+                  </numIndex -->
                 </items>
                 <size>1</size>
                 <minitems>1</minitems>
