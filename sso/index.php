@@ -58,8 +58,8 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 	public $ssolaunchUrl = 'http://admin.sduconnect.nl/index.php?auth_action=login';
 	private $ssoKey = false;
 	private $ssoUserVerified = false;
-	private $ssoErrors;
-	private $ssoMessages;
+	private $ssoErrors = array();
+	private $ssoMessages = array();
 	public $sduAccountId = false;
 	public $ssoUserName = false;
 	public $ssoUserPass = false;
@@ -310,9 +310,11 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 	
 	public function parseHTML($aHTML , $aMarkerSet){
 		$myHTML = t3lib_parsehtml::substituteMarkerArray($aHTML, $aMarkerSet);
+		/*
 		foreach ($subParts as $subPart => $subContent) {
 			$myHTML = t3lib_parsehtml::substituteSubpart($myHTML, $subPart, $subContent);
 		}
+		*/
 		return $myHTML;
 	}
 	
