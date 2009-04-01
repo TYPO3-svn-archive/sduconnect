@@ -260,6 +260,11 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 	protected function drawSectionOne(){
 		
 		$this->settings = sduconnectLibraries::loadSettings($this->settingsName);
+		if(t3lib_div::_GP('ooip_accountId')){
+			$this->setSsoAccountId(t3lib_div::_GP('ooip_accountId'));
+			$this->settings['accountId'] = $this->sduAccountId;
+		}
+				
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('tx_sduconnect_sdusecuritykey','be_users','uid='.$this->localUser->user['uid']);
 		list($this->ssoKey) = $GLOBALS['TYPO3_DB']->sql_fetch_row($res);
 		
@@ -272,7 +277,7 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 		if(t3lib_div::_GP('ooip_sduCheck')){
 			$this->postSSOCheckRequest();
 		}
-		
+
 		if($this->setSsoSduUserName(t3lib_div::_GP('ooip_sduUser')) && $this->setSsoSduUserPass(t3lib_div::_GP('ooip_sduPass')) && $this->setSsoSduCustomerIdKey(t3lib_div::_GP('ooip_secKey')) && $this->setSsoAccountId(t3lib_div::_GP('ooip_accountId'))){		
 			if($this->checkSSOregistration()){
 				if($this->ssoUserVerified){
@@ -334,18 +339,25 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 		if(!$this->ssoCustomerIdKey){
 			return false;
 		}
-		
-		$num = 19;
-		$iv = mcrypt_create_iv($num, MCRYPT_RAND);
+		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB); //get vector size on ECB mode 
+		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND); //Creating the vector		
 		
 		$strl = strlen($aStr); 
 		$fin = ''; 
 		for($i =0; $i < $strl; $i++){         	
 			$fin .= dechex(ord($aStr[$i])); 
 		} 	
-		return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256,$this->ssoCustomerIdKey,$fin,MCRYPT_MODE_ECB,$iv)); 
-		
+		return strtr(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256,$this->ssoCustomerIdKey,$fin,MCRYPT_MODE_ECB,$iv)),'+/=', '-_,');
 	} 
+	
+	public function encryptLoginDEPR($aStr) 
+	{
+		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB); //get vector size on ECB mode 
+		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND); //Creating the vector		
+		$cryptedpass = mcrypt_encrypt (MCRYPT_RIJNDAEL_256, $this->ssoCustomerIdKey, $aStr, MCRYPT_MODE_ECB, $iv); //Encrypting using MCRYPT_RIJNDAEL_256 algorithm
+		echo strtr(base64_encode($cryptedpass),'+/=', '-_,');
+		return strtr(base64_encode($cryptedpass),'+/=', '-_,');
+	}
 	
 	/**
 	* private function checkSSOregistration()
@@ -389,6 +401,7 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 			$this->ssoErrors[] = $this->localLang->getLL('error.loginForm.check.noAccountId');
 			return false;
 		}
+
 		$_data = array('auth_action' => 'login' , 'auth_typo3_hash' => $this->ssoKey,'auth_typo3_key' => $this->settings['accountId']);
 		$data = array();
 		while(list($n,$v) = each($_data)){
@@ -415,7 +428,6 @@ class  tx_sduconnect_sso extends t3lib_SCbase {
 		fputs($fp, $data);
 
 		if($fp){
-			
 			$out = "GET / HTTP/1.1\r\n";
 			$out .= "Host: www.example.com\r\n";
 			$out .= "Connection: Close\r\n\r\n";
